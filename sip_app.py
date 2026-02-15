@@ -43,18 +43,13 @@ df = pd.DataFrame(plot_data)
 
 st.subheader("Maturity Values")
 
-final_values = (
-    df[df["Year"] == years][["Rate", "Amount"]]
-    .sort_values("Amount", ascending=False)
-    .reset_index(drop=True)
-)
+final_values["Amount"] = final_values["Amount"].round(0)
 
 st.dataframe(
-    final_values.style.format({"Value (₹)": "₹{:,.0f}"}),
+    final_values.style.format({"Amount": "₹{:,.0f}"}),
     hide_index=True,
     use_container_width=True
 )
-
 
 st.subheader("Wealth Growth Over Time")
 
