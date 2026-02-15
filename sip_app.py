@@ -67,3 +67,77 @@ with col2:
 # Calculation for total invested
 total_invested = monthly_sip * 12 * years
 st.info(f"💡 Total amount invested over {years} years: **₹{total_invested:,}**")
+
+st.subheader("What's Next")
+
+st.write(
+    "This calculator shows the math. "
+    "If you want help finding the right investment, you can explore more here."
+)
+
+st.markdown(
+    """
+    <a href="https://shreemoney.in" target="_blank">
+        <button style="
+            background-color:#0f4c81;
+            color:white;
+            padding:10px 18px;
+            border:none;
+            border-radius:6px;
+            font-size:16px;
+            cursor:pointer;
+        ">
+            Visit ShreeMoney
+        </button>
+    </a>
+    """,
+    unsafe_allow_html=True
+)
+
+st.write(
+        "You can reach me directly."
+)
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.markdown(
+        """
+        <a href="tel:+917559161118">
+            <button style="
+                width:60%;
+                background-color:#0f4c81;
+                color:white;
+                padding:12px;
+                border:none;
+                border-radius:6px;
+                font-size:16px;
+                cursor:pointer;
+            ">
+                📞 Call
+            </button>
+        </a>
+        """,
+        unsafe_allow_html=True
+    )
+
+with col2:
+    st.markdown(
+        """
+        <a href="https://wa.me/917559161118" target="_blank">
+            <button style="
+                width:60%;
+                background-color:#25D366;
+                color:white;
+                padding:12px;
+                border:none;
+                border-radius:6px;
+                font-size:16px;
+                cursor:pointer;
+            ">
+                WhatsApp
+            </button>
+        </a>
+        """,
+        unsafe_allow_html=True
+    )
