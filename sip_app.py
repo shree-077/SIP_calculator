@@ -62,21 +62,32 @@ st.info(f"💡 Total amount invested over {years} years: **₹{total_invested:,}
 
 st.subheader("Wealth Growth Over Time")
 
-# Create the Matplotlib Figure
-fig, ax = plt.subplots(figsize=(10, 6))
-sns.set_style("whitegrid")
+# Remove Year 0 from chart (table can keep it)
+chart_df = df[df["Year"] > 0]
 
-# Plotting
-sns.lineplot(data=df, x="Year", y="Amount", hue="Rate", marker="o", ax=ax)
+fig, ax = plt.subplots(figsize=(9, 5))
 
-# Formatting
-ax.set_title(f"SIP Growth Comparison over {years} Years", fontsize=14)
-ax.set_ylabel("Total Wealth (₹)")
+sns.lineplot(
+    data=chart_df,
+    x="Year",
+    y="Amount",
+    hue="Rate",
+    linewidth=2,
+    ax=ax
+)
+
+ax.set_title(f"SIP Growth over {years} Years", fontsize=13)
 ax.set_xlabel("Years")
-ax.get_yaxis().set_major_formatter(plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+ax.set_ylabel("Portfolio Value (₹)")
 
-# Display in Streamlit
-st.pyplot(fig)
+ax.get_yaxis().set_major_formatter(
+    plt.FuncFormatter(lambda x, _: f"₹{int(x):,}")
+)
+
+ax.grid(True, alpha=0.3)
+ax.legend(title="Expected Return", fontsize=9)
+
+st.pyplot(fig, clear_figure=True)
 
 
 
