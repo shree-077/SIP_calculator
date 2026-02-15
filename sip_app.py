@@ -53,7 +53,7 @@ final_values["Amount"] = final_values["Amount"].round(0)
 st.dataframe(
     final_values.style.format({"Amount": "₹{:,.0f}"}),
     hide_index=True,
-    use_container_width=True
+    use_container_width=False
 )
 
 # Calculation for total invested
