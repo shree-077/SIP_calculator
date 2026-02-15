@@ -5,7 +5,7 @@ import seaborn as sns
 
 st.set_page_config(page_title="SIP Calculator", layout="wide")
 
-st.title("📈 SIP Growth: Matplotlib Version")
+st.title("SIP Growth")
 
 # --- INPUTS ---
 with st.sidebar:
@@ -38,60 +38,57 @@ for year in range(1, years + 1):
 df = pd.DataFrame(plot_data)
 
 # --- VISUALIZATION ---
+
+
+st.subheader("Maturity Values")
+
+final_values = (
+    df[df["Year"] == years][["Rate", "Amount"]]
+    .sort_values("Amount", ascending=True)
+    .reset_index(drop=True)
+)
+
+final_values["Amount"] = final_values["Amount"].round(0)
+
+st.dataframe(
+    final_values.style.format({"Amount": "₹{:,.0f}"}),
+    hide_index=True,
+    use_container_width=True
+)
+
 # Calculation for total invested
 total_invested = monthly_sip * 12 * years
 st.info(f"💡 Total amount invested over {years} years: **₹{total_invested:,}**")
 
-col1, col2 = st.columns([1, 2])
+#st.subheader("Wealth Growth Over Time")
 
-with col1:
+# Remove Year 0 from chart (table can keep it)
+chart_df = df[df["Year"] > 0]
 
-    st.subheader("Maturity Values")
+fig, ax = plt.subplots(figsize=(9, 5))
 
-    final_values = (
-        df[df["Year"] == years][["Rate", "Amount"]]
-        .sort_values("Amount", ascending=True)
-        .reset_index(drop=True)
-    )
+sns.lineplot(
+    data=chart_df,
+    x="Year",
+    y="Amount",
+    hue="Rate",
+    linewidth=2,
+    ax=ax
+)
 
-    final_values["Amount"] = final_values["Amount"].round(0)
+ax.set_title(f"SIP Growth over {years} Years", fontsize=13)
+ax.set_xlabel("Years")
+ax.set_ylabel("Portfolio Value (₹)")
 
-    st.dataframe(
-        final_values.style.format({"Amount": "₹{:,.0f}"}),
-        hide_index=True,
-        use_container_width=True
-    )
+ax.get_yaxis().set_major_formatter(
+    plt.FuncFormatter(lambda x, _: f"₹{int(x):,}")
+)
 
-with col2:
+ax.grid(True, alpha=0.3)
+ax.legend(title="Expected Return", fontsize=9)
 
-    st.subheader("Wealth Growth Over Time")
+st.pyplot(fig, clear_figure=True)
 
-    # Remove Year 0 from chart (table can keep it)
-    chart_df = df[df["Year"] > 0]
-
-    fig, ax = plt.subplots(figsize=(9, 5))
-
-    sns.lineplot(
-        data=chart_df,
-        x="Year",
-        y="Amount",
-        hue="Rate",
-        linewidth=2,
-        ax=ax
-    )
-
-    ax.set_title(f"SIP Growth over {years} Years", fontsize=13)
-    ax.set_xlabel("Years")
-    ax.set_ylabel("Portfolio Value (₹)")
-
-    ax.get_yaxis().set_major_formatter(
-        plt.FuncFormatter(lambda x, _: f"₹{int(x):,}")
-    )
-
-    ax.grid(True, alpha=0.3)
-    ax.legend(title="Expected Return", fontsize=9)
-
-    st.pyplot(fig, clear_figure=True)
 
 
 
@@ -168,5 +165,3 @@ with col2:
         """,
         unsafe_allow_html=True
     )
-
-
