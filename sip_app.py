@@ -50,11 +50,10 @@ with col1:
     )
 
     st.dataframe(
-        final_values.style.format({"Amount": "₹{:,.0f}"}),
+        final_values.style.format({"Value (₹)": "₹{:,.0f}"}),
         hide_index=True,
         use_container_width=True
     )
-
     
 
 with col2:
