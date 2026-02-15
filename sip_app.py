@@ -17,15 +17,18 @@ with st.sidebar:
 rates = [8, 10, 12, 14, 18]
 plot_data = []
 
-for year in range(0, years + 1): # Start from year 0 to see the start point
+for rate in rates:
+    plot_data.append({"Year": 0, "Rate": f"{rate}%", "Amount": 0})
+
+# Calculate from year 1 onwards
+for year in range(1, years + 1):
+    months = year * 12
     for rate in rates:
-        if year == 0:
-            fv = 0
-        else:
-            monthly_rate = (rate / 100) / 12
-            months = year * 12
-            fv = monthly_sip * (((1 + monthly_rate)**months - 1) / monthly_rate) * (1 + monthly_rate)
-        
+        monthly_rate = (rate / 100) / 12
+        fv = monthly_sip * (
+            ((1 + monthly_rate) ** months - 1) / monthly_rate
+        ) * (1 + monthly_rate)
+
         plot_data.append({
             "Year": year,
             "Rate": f"{rate}%",
