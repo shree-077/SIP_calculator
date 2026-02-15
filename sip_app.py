@@ -38,42 +38,41 @@ for year in range(1, years + 1):
 df = pd.DataFrame(plot_data)
 
 # --- VISUALIZATION ---
-col1, col2 = st.columns([2, 1])
 
-with col1:
-    st.subheader("Maturity Values")
 
-    final_values = (
-        df[df["Year"] == years][["Rate", "Amount"]]
-        .sort_values("Amount", ascending=False)
-        .reset_index(drop=True)
-    )
 
-    st.dataframe(
-        final_values.style.format({"Value (₹)": "₹{:,.0f}"}),
-        hide_index=True,
-        use_container_width=True
-    )
-    
+st.subheader("Maturity Values")
 
-with col2:
-    st.subheader("Wealth Growth Over Time")
-    
-    # Create the Matplotlib Figure
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.set_style("whitegrid")
-    
-    # Plotting
-    sns.lineplot(data=df, x="Year", y="Amount", hue="Rate", marker="o", ax=ax)
-    
-    # Formatting
-    ax.set_title(f"SIP Growth Comparison over {years} Years", fontsize=14)
-    ax.set_ylabel("Total Wealth (₹)")
-    ax.set_xlabel("Years")
-    ax.get_yaxis().set_major_formatter(plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
-    
-    # Display in Streamlit
-    st.pyplot(fig)
+final_values = (
+    df[df["Year"] == years][["Rate", "Amount"]]
+    .sort_values("Amount", ascending=False)
+    .reset_index(drop=True)
+)
+
+st.dataframe(
+    final_values.style.format({"Value (₹)": "₹{:,.0f}"}),
+    hide_index=True,
+    use_container_width=True
+)
+
+
+st.subheader("Wealth Growth Over Time")
+
+# Create the Matplotlib Figure
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.set_style("whitegrid")
+
+# Plotting
+sns.lineplot(data=df, x="Year", y="Amount", hue="Rate", marker="o", ax=ax)
+
+# Formatting
+ax.set_title(f"SIP Growth Comparison over {years} Years", fontsize=14)
+ax.set_ylabel("Total Wealth (₹)")
+ax.set_xlabel("Years")
+ax.get_yaxis().set_major_formatter(plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+
+# Display in Streamlit
+st.pyplot(fig)
 
 # Calculation for total invested
 total_invested = monthly_sip * 12 * years
