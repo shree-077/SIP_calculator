@@ -14,7 +14,7 @@ with st.sidebar:
     years = st.slider("Duration (Years)", min_value=1, max_value=40, value=15)
 
 # --- CALCULATION ---
-rates = [8, 10, 12, 14, 18]
+rates = [8, 10, 12, 14, 15]
 plot_data = []
 
 for rate in rates:
@@ -168,4 +168,5 @@ with col2:
         """,
         unsafe_allow_html=True
     )
+
 
