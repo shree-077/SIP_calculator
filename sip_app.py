@@ -62,7 +62,7 @@ with col1:
         use_container_width=False
     )
 
-with col1:
+with col2:
 
     st.subheader("Wealth Growth Over Time")
 
