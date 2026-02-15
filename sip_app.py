@@ -56,6 +56,10 @@ st.dataframe(
     use_container_width=True
 )
 
+# Calculation for total invested
+total_invested = monthly_sip * 12 * years
+st.info(f"💡 Total amount invested over {years} years: **₹{total_invested:,}**")
+
 st.subheader("Wealth Growth Over Time")
 
 # Create the Matplotlib Figure
@@ -74,9 +78,7 @@ ax.get_yaxis().set_major_formatter(plt.FuncFormatter(lambda x, loc: "{:,}".forma
 # Display in Streamlit
 st.pyplot(fig)
 
-# Calculation for total invested
-total_invested = monthly_sip * 12 * years
-st.info(f"💡 Total amount invested over {years} years: **₹{total_invested:,}**")
+
 
 st.subheader("What's Next")
 
