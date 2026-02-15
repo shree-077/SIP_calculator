@@ -44,8 +44,8 @@ with col1:
     st.subheader("Maturity Values")
     # Filter for the final year to show in table
    final_values = (
-    df[df["Year"] == years][["Rate", "Amount"]]
-    .reset_index(drop=True)
+        df[df["Year"] == years][["Rate", "Amount"]]
+        .reset_index(drop=True)
     )
 
 
