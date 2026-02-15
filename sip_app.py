@@ -44,7 +44,7 @@ st.subheader("Maturity Values")
 
 final_values = (
     df[df["Year"] == years][["Rate", "Amount"]]
-    .sort_values("Amount", ascending=False)
+    .sort_values("Amount", ascending=True)
     .reset_index(drop=True)
 )
 
