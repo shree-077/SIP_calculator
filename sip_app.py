@@ -59,7 +59,7 @@ with col1:
     st.dataframe(
         final_values.style.format({"Amount": "₹{:,.0f}"}),
         hide_index=True,
-        use_container_width=False
+        use_container_width=True
     )
 
 with col2:
@@ -168,3 +168,4 @@ with col2:
         """,
         unsafe_allow_html=True
     )
+
