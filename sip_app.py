@@ -40,8 +40,13 @@ df = pd.DataFrame(plot_data)
 # --- VISUALIZATION ---
 
 
-
 st.subheader("Maturity Values")
+
+final_values = (
+    df[df["Year"] == years][["Rate", "Amount"]]
+    .sort_values("Amount", ascending=False)
+    .reset_index(drop=True)
+)
 
 final_values["Amount"] = final_values["Amount"].round(0)
 
