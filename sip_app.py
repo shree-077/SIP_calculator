@@ -42,14 +42,18 @@ col1, col2 = st.columns([2, 1])
 
 with col1:
     st.subheader("Maturity Values")
-    # Filter for the final year to show in table
+
     final_values = (
         df[df["Year"] == years][["Rate", "Amount"]]
+        .sort_values("Amount", ascending=False)
         .reset_index(drop=True)
     )
 
-
-    st.table(final_values.style.format({"Amount": "₹{:,.0f}"}))
+    st.dataframe(
+        final_values.style.format({"Amount": "₹{:,.0f}"}),
+        hide_index=True,
+        use_container_width=True
+    )
 
     
 
